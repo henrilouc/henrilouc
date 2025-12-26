@@ -1,0 +1,73 @@
+name: Generate Drummer Animation
+
+on:
+  schedule:
+    # Roda todo dia às 00:00 UTC (21:00 Brasília)
+    - cron: "0 0 * * *"
+  
+  workflow_dispatch:  # Permite rodar manualmente
+  
+  push:
+    branches:
+      - main
+    paths:
+      - 'scripts/generate_drummer_animation.py'
+      - '.github/workflows/drummer-animation.yml'
+
+jobs:
+  generate-animation:
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: write
+    
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+      
+      - name: 📦 Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+      
+      - name: 🥁 Generate drummer animation
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_USERNAME: ${{ github.repository_owner }}
+        run: |
+          python scripts/generate_drummer_animation.py
+      
+      - name: 📊 Check if animation changed
+        id: check_changes
+        run: |
+          if git diff --quiet assets/drummer-animation.svg; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: 💾 Commit and push if changed
+        if: steps.check_changes.outputs.changed == 'true'
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "actions@github.com"
+          git add assets/drummer-animation.svg
+          git commit -m "🥁 Update drummer animation [skip ci]"
+          git push
+      
+      - name: ✅ Done
+        run: |
+          echo "🎉 Drummer animation generated successfully!"
+          if [ "${{ steps.check_changes.outputs.changed }}" == "true" ]; then
+            echo "✨ Animation was updated and committed"
+          else
+            echo "ℹ️  No changes detected"
+          fi
