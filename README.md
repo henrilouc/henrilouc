@@ -1,4 +1,4 @@
-# Olá, eu sou Henrique Elias! 👋🥁
+# Salve, eu sou o Henrique! 👋🥁
 
 <div align="center">
   
@@ -71,7 +71,10 @@ Atualmente trabalhando no squad de **Portal Ifood Pago**, onde:
 
 <div align="center">
 
+  
   ![GitHub Streak](https://github-readme-streak-stats.herokuapp.com/?user=henrilouc&theme=tokyonight&hide_border=true)
+  
+
 
 <div align="center">
   
@@ -87,7 +90,7 @@ Atualmente trabalhando no squad de **Portal Ifood Pago**, onde:
 
 ## 🎸 Além do Código
 
-- 🥁 **Baterista** - Toco em uma banda de rock cristão - [@Lumen](https://www.instagram.com/lumenoficial/)
+- 🥁 **Baterista** - Toco em uma banda de rock cristão - @Lumen
 - ⛪ **Igreja** - Constantemente envolvido em treinamentos de liderança
 - 🤝 **Voluntário** - Campus Party 2019, Show Hillsong 2019, Sara Nossa Terra
 - 📚 **Eterno Aprendiz** - Sempre buscando novos conhecimentos
